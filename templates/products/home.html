@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-2xl font-bold mb-4">All Products</h2>
+  <div class="grid grid-cols-3 gap-4">
+    {% for product in products %}
+      <div class="border rounded-xl p-4 shadow">
+        <h3 class="text-lg font-semibold">{{ product.name }}</h3>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="h-32 object-cover">
+        <p>{{ product.description|truncatechars:100 }}</p>
+        <p class="font-bold">${{ product.price }}</p>
+        <a href="#" class="text-blue-500 underline">View Product</a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
