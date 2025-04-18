@@ -8,6 +8,7 @@
 <body class="bg-gray-100 text-gray-900">
   <header class="bg-white shadow p-4">
     <h1 class="text-3xl font-bold">🛒 My Django Shop</h1>
+    <a href="{% url 'cart:cart_detail' %}">🛒 View Cart</a>
   </header>
   {% load static %}
   <main class="p-6 container mx-auto">

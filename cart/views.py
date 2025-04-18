@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from .models import Cart, CartItem
 from products.models import Product
+from django.views.generic import TemplateView
 
 class AddToCartView(View):
     def post(self, request, pk):
@@ -21,3 +22,18 @@ class AddToCartView(View):
             cart_item.save()
 
         return redirect('products:product_detail', pk=pk)
+
+class CartDetailView(TemplateView):
+    template_name = 'cart/cart_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            cart = Cart.objects.filter(user=self.request.user).first()
+        else:
+            session_key = self.request.session.session_key or self.request.session.save()
+            cart = Cart.objects.filter(session_key=self.request.session.session_key).first()
+
+        context['cart'] = cart
+        return context
