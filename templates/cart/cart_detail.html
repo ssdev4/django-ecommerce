@@ -44,7 +44,10 @@
 
     <h4>Total: ${{ cart.total }}</h4>
 
-    <a href="#" class="btn btn-success">Checkout</a>
+    {% if cart.items.all %}
+      <a href="{% url 'checkout:checkout' %}" class="btn btn-primary mt-4">Proceed to Checkout</a>
+    {% endif %}
+
   {% else %}
     <p>Your cart is empty.</p>
   {% endif %}
