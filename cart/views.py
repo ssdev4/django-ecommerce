@@ -37,3 +37,30 @@ class CartDetailView(TemplateView):
 
         context['cart'] = cart
         return context
+
+# Remove Item from Cart
+class RemoveFromCartView(View):
+    def post(self, request, pk):
+        # Find the cart item to remove
+        cart_item = get_object_or_404(CartItem, pk=pk)
+        
+        # Delete it
+        cart_item.delete()
+
+        return redirect('cart:cart_detail')
+
+# Update Quantity in Cart
+class UpdateQuantityView(View):
+    def post(self, request, pk):
+        # Get the cart item
+        cart_item = get_object_or_404(CartItem, pk=pk)
+        
+        # Get the new quantity from the form
+        new_quantity = int(request.POST.get('quantity', 1))
+
+        # Update the quantity
+        if new_quantity > 0:
+            cart_item.quantity = new_quantity
+            cart_item.save()
+        
+        return redirect('cart:cart_detail')

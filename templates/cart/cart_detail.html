@@ -12,6 +12,9 @@
           <th>Qty</th>
           <th>Price</th>
           <th>Subtotal</th>
+          <th>Remove</th>
+          <th>Update</th>
+
         </tr>
       </thead>
       <tbody>
@@ -21,6 +24,19 @@
           <td>{{ item.quantity }}</td>
           <td>${{ item.product.price }}</td>
           <td>${{ item.subtotal }}</td>
+          <td>
+            <form method="post" action="{% url 'cart:remove_from_cart' item.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Remove</button>
+            </form>            
+          </td>
+          <td>
+            <form method="post" action="{% url 'cart:update_quantity' item.pk %}">
+              {% csrf_token %}
+              <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control w-auto d-inline-block">
+              <button type="submit" class="btn btn-warning">Update</button>
+            </form>            
+          </td>
         </tr>
         {% endfor %}
       </tbody>
