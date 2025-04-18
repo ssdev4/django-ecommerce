@@ -13,7 +13,10 @@
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>
       <h4>${{ product.price }}</h4>
-      <a href="#" class="btn btn-primary">Add to Cart</a>
+      <form method="post" action="{% url 'cart:add_to_cart' product.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Add to Cart</button>
+      </form>      
     </div>
   </div>
 </div>
