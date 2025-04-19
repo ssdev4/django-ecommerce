@@ -132,3 +132,44 @@ AUTH_USER_MODEL = 'users.CustomUser'
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+import logging
+
+class BlueFormatter(logging.Formatter):
+    BLUE = '\033[94m'
+    RESET = '\033[0m'
+
+    def format(self, record):
+        original = super().format(record)
+        return f"{self.BLUE}{original}{self.RESET}"
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'blue_sql',
+        },
+    },
+    'formatters': {
+        'blue_sql': {
+            '()': BlueFormatter,
+            'format': '[SQL] %(message)s',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    }
+}
+
+# this is for debug_toolbar setting
+INSTALLED_APPS += ['debug_toolbar']
+
+MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
+
+INTERNAL_IPS = ['127.0.0.1']  # Add this

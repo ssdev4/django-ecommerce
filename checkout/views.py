@@ -4,6 +4,7 @@ from .forms import CheckoutForm
 from .models import Order, OrderItem
 from cart.models import Cart
 from django.views.generic import TemplateView
+from django.db.models import Q
 
 class CheckoutView(View):
     def get(self, request):
@@ -12,6 +13,7 @@ class CheckoutView(View):
 
     def post(self, request):
         form = CheckoutForm(request.POST)
+        # import pdb; pdb.set_trace()
         if form.is_valid():
             order = form.save(commit=False)
             if request.user.is_authenticated:
@@ -19,8 +21,18 @@ class CheckoutView(View):
             order.save()
 
             # Fetch the current cart
-            cart = Cart.objects.filter(user=request.user if request.user.is_authenticated else None,
-                                       session_key=request.session.session_key).first()
+            # cart = Cart.objects.filter(
+            #     Q(user=request.user) | Q(session_key=request.session.session_key)
+            # ).first()
+
+            # Fetch the current cart for logged-in or guest users
+            if request.user.is_authenticated:
+                # For logged-in users, retrieve cart by user
+                cart = Cart.objects.filter(user=request.user).first()
+            else:
+                # For guest users, retrieve cart by session_key
+                cart = Cart.objects.filter(session_key=request.session.session_key).first()
+
             if cart:
                 for item in cart.items.all():
                     OrderItem.objects.create(
