@@ -7,9 +7,16 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
   <header class="bg-white shadow p-4">
-    <a href="/"><h1 class="text-3xl font-bold">🛒 My Django Shop</h1></a>
-    <a href="{% url 'cart:cart_detail' %}">🛒 View Cart</a>
-    <a href="{% url 'orders:order_history' %}">Order History</a>
+    <a href="/"><span class="text-3xl font-bold">🛒 My Django Shop</span></a> |
+    <a href="{% url 'cart:cart_detail' %}">🛒 View Cart</a> |
+    <a href="{% url 'orders:order_history' %}">Order History</a> |
+
+    {% if user.is_authenticated %}
+      Hello, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+
   </header>
   {% load static %}
   <main class="p-6 container mx-auto">
