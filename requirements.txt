@@ -1,12 +1,17 @@
 altgraph==0.17.2
 asgiref==3.8.1
+async-timeout==5.0.1
 camelcase==0.2
+channels==4.2.2
+channels_redis==4.2.1
 colorama==0.4.6
 Django==4.2.20
 django-debug-toolbar==5.1.0
 future==0.18.2
 macholib==1.15.2
+msgpack==1.1.0
 pillow==11.2.1
+redis==5.2.1
 six==1.15.0
 sqlparse==0.5.3
 typing_extensions==4.12.2

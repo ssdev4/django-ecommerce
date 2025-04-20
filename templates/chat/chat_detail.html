@@ -12,4 +12,30 @@
     <textarea name="message" class="w-full p-2 border rounded-md" placeholder="Type a message..."></textarea>
     <button type="submit" class="bg-green-500 text-white p-2 rounded-lg mt-2 hover:bg-green-600">Send</button>
   </form>
+
+  <script>
+    // Open WebSocket connection to the specified URL
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/{{ other_user.username }}/'
+    );
+  
+    // When message is received from the server
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageContainer = document.createElement('div');
+        messageContainer.textContent = data.sender + ": " + data.content;
+        document.querySelector('div').appendChild(messageContainer);
+    };
+  
+    // Send message to server
+    document.querySelector('form').onsubmit = function(e) {
+        e.preventDefault();
+        const messageInputDom = document.querySelector('textarea');
+        const messageContent = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': messageContent
+        }));
+        messageInputDom.value = '';
+    };
+  </script>  
 {% endblock %}
