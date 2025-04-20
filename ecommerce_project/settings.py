@@ -171,7 +171,7 @@ INTERNAL_IPS = ['127.0.0.1']  # Add this
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
-ASGI_APPLICATION = 'your_project_name.asgi.application'
+ASGI_APPLICATION = 'ecommerce_project.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
