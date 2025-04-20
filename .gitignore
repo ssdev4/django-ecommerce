@@ -1,7 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
-# *.sqlite3
+*.sqlite3
 *.log
 *.pot
 *.pyc
@@ -14,9 +14,10 @@ ENV/
 env/*
 
 # Django
-# *.sqlite3
-# db.sqlite3
-# /media
+*.sqlite3
+db.sqlite3
+media/*
+!media/.gitkeep
 /staticfiles
 
 # VS Code
