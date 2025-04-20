@@ -8,6 +8,10 @@ class AddToCartView(View):
     def post(self, request, pk):
         product = get_object_or_404(Product, pk=pk)
 
+        #create session if not already
+        if not request.session.session_key:
+            request.session.create()
+
         # Handle logged in user or session
         if request.user.is_authenticated:
             cart, created = Cart.objects.get_or_create(user=request.user)

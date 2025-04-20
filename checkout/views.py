@@ -18,6 +18,8 @@ class CheckoutView(View):
             order = form.save(commit=False)
             if request.user.is_authenticated:
                 order.user = request.user
+            else:
+                order.session_key = request.session.session_key
             order.save()
 
             # Fetch the current cart
