@@ -133,16 +133,7 @@ MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
-import logging
-
-class BlueFormatter(logging.Formatter):
-    BLUE = '\033[94m'
-    RESET = '\033[0m'
-
-    def format(self, record):
-        original = super().format(record)
-        return f"{self.BLUE}{original}{self.RESET}"
+from .logutils import BlueFormatter
 
 LOGGING = {
     'version': 1,
@@ -156,7 +147,7 @@ LOGGING = {
     'formatters': {
         'blue_sql': {
             '()': BlueFormatter,
-            'format': '[SQL] %(message)s',
+            'format': '[SQL] %(message)s',  # or '%(sql)s' if sql is always set
         },
     },
     'loggers': {
