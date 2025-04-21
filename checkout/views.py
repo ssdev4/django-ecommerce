@@ -37,6 +37,16 @@ class CheckoutView(View):
 
             if cart:
                 for item in cart.items.all():
+                    # Check stock before creating OrderItem
+                    inventory = item.product.inventory
+                    try:
+                        inventory.update_stock(item.quantity)  # Reduce stock
+                    except ValueError:
+                        # Optional: handle out-of-stock error gracefully
+                        # For now, just re-raise it to stop the checkout
+                        raise
+
+                    # Create the order item only if stock was reduced
                     OrderItem.objects.create(
                         order=order,
                         product=item.product,
