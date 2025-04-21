@@ -13,6 +13,7 @@
     <a href="{% url 'chat:chat_list' %}">Start Chat</a> |
 
     {% if user.is_authenticated %}
+      <a href="{% url 'dashboard:inventory_list' %}">Inventory list</a> |
       Hello, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
     {% else %}
       <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Inventory Dashboard</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Current Stock</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inventory in inventories %}
+        <tr>
+            <td>{{ inventory.product.name }}</td>
+            <td>{{ inventory.stock }}</td>
+            <td>
+                <form method="POST" action="{% url 'dashboard:update_inventory' inventory.product.id %}">
+                    {% csrf_token %}
+                    <input type="number" name="stock" value="{{ inventory.stock }}" min="0">
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
