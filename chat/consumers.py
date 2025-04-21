@@ -21,7 +21,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
             await self.accept()
 
-            # ✅ Fetch messages safely
+            # Fetch messages safely
             messages = await self.get_last_messages()
 
             for message in messages:
@@ -42,7 +42,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message_content = text_data_json['message']
 
-        # ✅ Save message and get receiver safely
+        # Save message and get receiver safely
         receiver = await self.get_receiver_user(self.username)
         await self.create_message(self.user, receiver, message_content)
 
@@ -61,7 +61,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'content': event['content'],
         }))
 
-    # --- 🔽 ORM Helpers wrapped with @database_sync_to_async ---
+    # --- ORM Helpers wrapped with @database_sync_to_async ---
 
     @database_sync_to_async
     def get_last_messages(self):
