@@ -38,3 +38,5 @@ node_modules/
 
 # Tailwind (if used)
 # static/css/tailwind.css
+
+dump.rdb
