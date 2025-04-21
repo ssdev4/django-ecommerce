@@ -21,3 +21,8 @@ python -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
+## 📁 This is using dphane to support websocket
+to run project
+```
+DJANGO_SETTINGS_MODULE=ecommerce_project.settings daphne -p 8000 ecommerce_project.asgi:application
+```
