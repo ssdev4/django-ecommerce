@@ -22,7 +22,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.accept()
 
             # Fetch messages safely
-            messages = await self.get_last_messages()
+            # messages = await self.get_last_messages() old messages gets loaded by view
+            messages = []
 
             for message in messages:
                 await self.send(text_data=json.dumps({
