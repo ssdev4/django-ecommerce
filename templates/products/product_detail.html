@@ -15,8 +15,13 @@
       <h4>${{ product.price }}</h4>
       <form method="post" action="{% url 'cart:add_to_cart' product.pk %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Add to Cart</button>
-      </form>      
+        {% if product.inventory.stock > 0 %}
+            Stock available: {{ product.inventory.stock }} |
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        {% else %}
+            Out of stock
+        {% endif %}
+      </form>
     </div>
   </div>
 </div>

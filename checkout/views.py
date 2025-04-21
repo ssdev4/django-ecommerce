@@ -5,6 +5,7 @@ from .models import Order, OrderItem
 from cart.models import Cart
 from django.views.generic import TemplateView
 from django.db.models import Q
+from django.contrib import messages
 
 class CheckoutView(View):
     def get(self, request):
@@ -36,6 +37,15 @@ class CheckoutView(View):
                 cart = Cart.objects.filter(session_key=request.session.session_key).first()
 
             if cart:
+                for item in cart.items.all():
+                    product = item.product
+
+                    # ✅ Inventory check
+                    if not hasattr(product, 'inventory') or product.inventory.stock < item.quantity:
+                        messages.error(request, f"Insufficient stock for {product.name}")
+                        form.add_error(None, f"Insufficient stock for {product.name}")
+                        return render(request, 'checkout/checkout.html', {'form': form})
+
                 for item in cart.items.all():
                     # Check stock before creating OrderItem
                     inventory = item.product.inventory

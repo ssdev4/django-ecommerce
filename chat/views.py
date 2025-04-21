@@ -31,5 +31,5 @@ def chat_detail(request, username):
 
     return render(request, 'chat/chat_detail.html', {
         'other_user': other_user,
-        'messages': messages
+        'chat_messages': messages
     })
