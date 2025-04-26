@@ -181,3 +181,13 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+
+#  Mailer setup
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = 'no-reply@myshop.com'
