@@ -6,7 +6,7 @@ from cart.models import Cart
 from django.views.generic import TemplateView
 from django.db.models import Q
 from django.contrib import messages
-from .services.email_service import send_order_confirmation_email
+from .utils.tasks import send_order_confirmation_email_task
 
 class CheckoutView(View):
     def get(self, request):
@@ -56,7 +56,7 @@ class CheckoutView(View):
                 cart.items.all().delete()
 
                 # Send Order Confirmation Email
-                send_order_confirmation_email(order)
+                send_order_confirmation_email_task.delay(order.id)
 
             return redirect('checkout:order_success')
 

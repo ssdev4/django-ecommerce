@@ -35,6 +35,20 @@ python manage.py runserver
 docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
 ```
 
+## Run Celery
+```
+celery -A ecommerce_project worker --loglevel=info
+```
+## Run Flower
+```
+celery -A ecommerce_project flower
+```
+
+## Or run both via bash script
+```
+./start-celery.sh
+```
+
 ## Prod Deploy
 
 For production, typically run Daphne explicitly
