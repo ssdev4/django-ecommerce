@@ -27,6 +27,7 @@ pip install -r requirements.txt
 ```
 python manage.py makemigrations
 python manage.py migrate
+python manage.py migrate django_celery_beat
 python manage.py runserver
 ```
 
@@ -38,6 +39,10 @@ docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
 ## Run Celery
 ```
 celery -A ecommerce_project worker --loglevel=info
+```
+## Run Celery Beat
+```
+celery -A ecommerce_project beat --loglevel=info
 ```
 ## Run Flower
 ```

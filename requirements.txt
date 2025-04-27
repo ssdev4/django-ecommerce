@@ -17,10 +17,13 @@ click-plugins==1.1.1
 click-repl==0.3.0
 colorama==0.4.6
 constantly==23.10.4
+cron-descriptor==1.4.5
 cryptography==44.0.2
 daphne==4.1.2
 Django==4.2.20
+django-celery-beat==2.8.0
 django-debug-toolbar==5.1.0
+django-timezone-field==7.1
 flower==2.0.1
 future==0.18.2
 humanize==4.12.2
@@ -37,6 +40,7 @@ pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pycparser==2.22
 pyOpenSSL==25.0.0
+python-crontab==3.2.0
 python-dateutil==2.9.0.post0
 pytz==2025.2
 redis==5.2.1

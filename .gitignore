@@ -40,3 +40,5 @@ node_modules/
 # static/css/tailwind.css
 
 dump.rdb
+
+celerybeat-schedule.db
